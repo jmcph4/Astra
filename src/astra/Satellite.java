@@ -1,4 +1,5 @@
 package astra;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -12,7 +13,7 @@ import java.util.GregorianCalendar;
  * 
  */
 public class Satellite
-{   
+{
     private String name;
     private int num;
     private String classification;
@@ -65,41 +66,41 @@ public class Satellite
     
     /**
      * @param name
-     *          name of the satellite
+     *            name of the satellite
      * @param number
-     *          satellite number
+     *            satellite number
      * @param classification
-     *          classification of the satellite
+     *            classification of the satellite
      * @param internationalDesignatorLaunchYear
-     *          year the satellite was launched
+     *            year the satellite was launched
      * @param internationalDesignatorLaunchNumber
-     *         what number the launch was of the launch year
+     *            what number the launch was of the launch year
      * @param internationalDesignatorLaunchPiece
-     *          piece of the launch
+     *            piece of the launch
      * @param epoch
-     *          the astronomical epoch of the orbital elements
+     *            the astronomical epoch of the orbital elements
      * @param ftdmm2
-     *          first time derivative of mean motion divided by 2
+     *            first time derivative of mean motion divided by 2
      * @param stdmm6
-     *          second time derivative of mean motion divided by 6
+     *            second time derivative of mean motion divided by 6
      * @param BSTARDrag
-     *          the drag term represented as BSTAR drag
+     *            the drag term represented as BSTAR drag
      * @param ephemerisType
-     *          the type of ephemeris
+     *            the type of ephemeris
      * @param inclination
-     *          the inclination, in degrees, of the satellite
+     *            the inclination, in degrees, of the satellite
      * @param rightAscensionAscendingNode
-     *          the right ascension of the ascending node (in degrees)
+     *            the right ascension of the ascending node (in degrees)
      * @param eccentricity
-     *          the eccentricity of the satellite (in degrees)
+     *            the eccentricity of the satellite (in degrees)
      * @param argumentOfPerigee
-     *          the argument of perigee (in degrees)
+     *            the argument of perigee (in degrees)
      * @param meanAnomaly
-     *          the mean anomaly of the satellite
+     *            the mean anomaly of the satellite
      * @param meanMotion
-     *          the mean motion of the satellite
+     *            the mean motion of the satellite
      * @param revolutionsPerDay
-     *          the number of revolutions per day, as at the epoch
+     *            the number of revolutions per day, as at the epoch
      * 
      * @throws NullPointerException
      *             if <code>name</code>, <code>classification</code>, or
@@ -526,6 +527,17 @@ public class Satellite
     @Override
     public boolean equals(Object obj)
     {
+        SimpleDateFormat launchYearFormat = new SimpleDateFormat("yyyy");
+        String launchYearString = launchYearFormat
+                        .format(this.launchYear.getTime());
+        String otherLaunchYearString = launchYearFormat
+                        .format(this.launchYear.getTime());
+        
+        SimpleDateFormat epochFormat = new SimpleDateFormat(
+                        this.TIMESTAMP_FORMAT);
+        String epochString = epochFormat.format(this.epoch.getTime());
+        String otherEpochString = epochFormat.format(this.epoch.getTime());
+        
         if(this == obj)
         {
             return true;
@@ -570,7 +582,7 @@ public class Satellite
                 return false;
             }
         }
-        else if(!epoch.equals(other.epoch))
+        else if(!epochString.equals(otherEpochString))
         {
             return false;
         }
@@ -598,7 +610,7 @@ public class Satellite
                 return false;
             }
         }
-        else if(!launchYear.equals(other.launchYear))
+        else if(!launchYearString.equals(otherLaunchYearString))
         {
             return false;
         }
@@ -657,8 +669,8 @@ public class Satellite
     public String toString()
     {
         SimpleDateFormat launchYearFormat = new SimpleDateFormat("yyyy");
-        String launchYearString = launchYearFormat.format(
-                        this.launchYear.getTime());
+        String launchYearString = launchYearFormat
+                        .format(this.launchYear.getTime());
         
         SimpleDateFormat epochFormat = new SimpleDateFormat(
                         this.TIMESTAMP_FORMAT);

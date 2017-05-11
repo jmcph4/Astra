@@ -22,9 +22,10 @@ public class SatelliteTest
     
     private Satellite satelliteA;
     private Satellite satelliteB;
-
+    
     /**
      * @throws java.lang.Exception
+     *          if any exception occurs underneath
      */
     @Before
     public void setUp() throws Exception
@@ -48,14 +49,15 @@ public class SatelliteTest
         epochB.set(Calendar.YEAR, 2015);
         epochB.set(Calendar.DAY_OF_YEAR, 53);
         
-        this.satelliteB = new Satellite("NOAA 15", 25338, "U", launchYearB,
-                        30, 1, epochB, 0.00000187f, 0.0f, 97801.4f, 0,
-                        98.7693f, 52.1527f, 0.0011546f, 138.1703f, 329.3111f,
+        this.satelliteB = new Satellite("NOAA 15", 25338, "U", launchYearB, 30,
+                        1, epochB, 0.00000187f, 0.0f, 97801.4f, 0, 98.7693f,
+                        52.1527f, 0.0011546f, 138.1703f, 329.3111f,
                         14.255691348f, 72510);
     }
     
     /**
      * @throws java.lang.Exception
+     *          if any exception occurs underneath
      */
     @After
     public void tearDown() throws Exception
@@ -125,6 +127,14 @@ public class SatelliteTest
         Assert.assertTrue(this.satelliteA.equals(satelliteA));
         Assert.assertTrue(this.satelliteB.equals(satelliteB));
         Assert.assertFalse(this.satelliteA.equals(this.satelliteB));
+        
+        // check string representations match
+        Assert.assertTrue(this.satelliteA.toString()
+                        .equals(this.satelliteA.toString()));
+        Assert.assertTrue(this.satelliteB.toString()
+                        .equals(this.satelliteB.toString()));
+        Assert.assertFalse(this.satelliteA.toString()
+                        .equals(this.satelliteB.toString()));
     }
     
     /**
@@ -133,18 +143,16 @@ public class SatelliteTest
     @Test
     public void testToString()
     {
-        String expected = "Satellite [name=ISS (ZARYA), num=25544, " +
-                            "classification=U, " + 
-                            "launchYear=1998, " + 
-                            "launchNum=67, " + 
-                            "launchPiece=1, " +
-                            "epoch=2008-09-20, " +
-                            "ftdmm2=-2.182E-5, stdmm6=0.0, drag=-11606.4, " + 
-                            "ephemeris=0, inclination=51.6416, " + 
-                            "rightAscension=247.4627, " + 
-                            "eccentricity=6.703E-4, perigee=130.536, " + 
-                            "meanAnomaly=325.0288, meanMotion=15.721254, " + 
-                            "revolutions=56353]";
+        String expected = "Satellite [name=ISS (ZARYA), num=25544, "
+                        + "classification=U, " + "launchYear=1998, "
+                        + "launchNum=67, " + "launchPiece=1, "
+                        + "epoch=2008-09-20, "
+                        + "ftdmm2=-2.182E-5, stdmm6=0.0, drag=-11606.4, "
+                        + "ephemeris=0, inclination=51.6416, "
+                        + "rightAscension=247.4627, "
+                        + "eccentricity=6.703E-4, perigee=130.536, "
+                        + "meanAnomaly=325.0288, meanMotion=15.721254, "
+                        + "revolutions=56353]";
         String actual = this.satelliteA.toString();
         
         Assert.assertEquals(expected, actual);
